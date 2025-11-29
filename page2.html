@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>My favourite picture 💑</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff0f7;
+      position: relative;
+      overflow: hidden;
+    }
+    .bg {
+      position: fixed;
+      inset: 0;
+      background-image: url("shona-us.jpg");
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.65);
+      z-index: -1;
+      transform: scale(1.05);
+    }
+    .overlay {
+      position: relative;
+      padding: 20px;
+      width: 100%;
+      max-width: 420px;
+    }
+    .card {
+      background: rgba(0, 0, 0, 0.45);
+      border-radius: 22px;
+      padding: 20px 18px 22px;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+      text-align: center;
+      animation: fadeIn 0.8s ease-out;
+    }
+    h1 {
+      font-size: 22px;
+      margin-bottom: 6px;
+    }
+    .tagline {
+      font-size: 14px;
+      opacity: 0.9;
+      margin-bottom: 12px;
+    }
+    .message {
+      margin-top: 10px;
+      font-size: 15px;
+      line-height: 1.5;
+      min-height: 60px;
+    }
+
+    .chip {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      font-size: 12px;
+    }
+
+    .button-row {
+      margin-top: 16px;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .button {
+      padding: 10px 22px;
+      border-radius: 999px;
+      border: none;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.45);
+    }
+    .button.primary {
+      background: linear-gradient(135deg, #ff7ab5, #ffb3e6);
+      color: #3a0020;
+    }
+    .button.secondary {
+      background: rgba(255, 255, 255, 0.16);
+      color: #ffe4f4;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+    .button:hover {
+      transform: translateY(-1px) scale(1.02);
+      filter: brightness(1.03);
+    }
+    .button:active {
+      transform: translateY(1px) scale(0.98);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg"></div>
+
+  <div class="overlay">
+    <div class="card">
+      <h1>Shona, look how cute we are 🥹</h1>
+      <p class="tagline">This is one of my favourite photos of us.</p>
+
+      <div class="message" id="messageText">
+        You’re not just my to-be wife, you’re my happiest place. 💖
+      </div>
+
+      <span class="chip" id="counterChip">1 / 4</span>
+
+      <div class="button-row">
+        <button class="button secondary" onclick="nextMessage()">
+          Next little reason ❤️
+        </button>
+        <a class="button primary" href="page3.html">
+          Continue the surprise ➜
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const messages = [
+      "You’re not just my to-be wife, you’re my happiest place. 💖",
+      "With you, even simple moments feel special and safe. ✨",
+      "I love your smile, your calm, and the way you understand me. 🥹",
+      "I’m genuinely so proud and so lucky to call you mine, Shona. ❤️"
+    ];
+    let index = 0;
+
+    function nextMessage() {
+      index = (index + 1) % messages.length;
+      const msgEl = document.getElementById("messageText");
+      const chip = document.getElementById("counterChip");
+
+      msgEl.style.opacity = 0;
+      setTimeout(() => {
+        msgEl.textContent = messages[index];
+        msgEl.style.opacity = 1;
+        chip.textContent = (index + 1) + " / " + messages.length;
+      }, 150);
+    }
+  </script>
+
+</body>
+</html>
