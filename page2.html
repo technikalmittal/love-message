@@ -17,9 +17,10 @@
       position: relative;
       overflow: hidden;
       background-color: #000;
+      opacity: 0;                        /* for fade effect */
+      transition: opacity 0.4s ease;     /* smooth fade */
     }
 
-    /* FIXED: Full image fits on screen */
     .bg {
       position: fixed;
       inset: 0;
@@ -28,7 +29,7 @@
       background-position: center center;
       background-repeat: no-repeat;
       background-color: black;
-      filter: brightness(0.75);           /* Slight dark filter */
+      filter: brightness(0.75);
       z-index: -1;
     }
 
@@ -37,19 +38,18 @@
       padding: 20px;
       width: 100%;
       max-width: 420px;
-      animation: fadeIn 1.2s ease-out;    /* Smooth fade-in animation */
+      animation: fadeInCard 1.2s ease-out;
     }
 
-    /* New: Soft blur behind card */
     .card {
-      background: rgba(0, 0, 0, 0.35);      /* Transparent dark layer */
-      backdrop-filter: blur(12px);          /* Frosted blur */
-      -webkit-backdrop-filter: blur(12px);  /* Safari support */
+      background: rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       border-radius: 22px;
       padding: 22px 18px 24px;
       box-shadow: 0 18px 42px rgba(0, 0, 0, 0.4);
       text-align: center;
-      border: 1px solid rgba(255, 255, 255, 0.18); /* subtle glass border */
+      border: 1px solid rgba(255, 255, 255, 0.18);
     }
 
     h1 {
@@ -123,7 +123,7 @@
       transform: translateY(1px) scale(0.97);
     }
 
-    @keyframes fadeIn {
+    @keyframes fadeInCard {
       from { opacity: 0; transform: translateY(12px); }
       to { opacity: 1; transform: translateY(0); }
     }
@@ -162,7 +162,6 @@
       "I love your smile, your calm, and the way you understand me. 🥹",
       "I’m genuinely so proud and so lucky to call you mine, Shona. ❤️"
     ];
-
     let index = 0;
 
     function nextMessage() {
@@ -177,6 +176,27 @@
         chip.textContent = (index + 1) + " / " + messages.length;
       }, 150);
     }
+
+    // Smooth page transitions
+    document.addEventListener("DOMContentLoaded", () => {
+      // Fade in on load
+      requestAnimationFrame(() => {
+        document.body.style.opacity = "1";
+      });
+
+      // Fade out on internal navigation
+      document.querySelectorAll('a[href$=".html"]').forEach(link => {
+        link.addEventListener("click", (e) => {
+          const url = link.getAttribute("href");
+          if (!url) return;
+          e.preventDefault();
+          document.body.style.opacity = "0";
+          setTimeout(() => {
+            window.location.href = url;
+          }, 400);
+        });
+      });
+    });
   </script>
 
 </body>
