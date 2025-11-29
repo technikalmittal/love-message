@@ -15,6 +15,8 @@
       background: radial-gradient(circle at top, #ffe6f2 0, #fff0fa 40%, #ffeef7 100%);
       overflow: hidden;
       color: #d63384;
+      opacity: 0;                        /* for fade effect */
+      transition: opacity 0.4s ease;     /* smooth fade */
     }
     .container {
       text-align: center;
@@ -113,6 +115,7 @@
   </div>
 
   <script>
+    // Floating hearts
     function createHeart() {
       const heart = document.createElement("div");
       heart.className = "floating-heart";
@@ -125,6 +128,27 @@
       setTimeout(() => heart.remove(), duration * 1000);
     }
     setInterval(createHeart, 900);
+
+    // Smooth page transitions
+    document.addEventListener("DOMContentLoaded", () => {
+      // Fade in on load
+      requestAnimationFrame(() => {
+        document.body.style.opacity = "1";
+      });
+
+      // Fade out on internal navigation
+      document.querySelectorAll('a[href$=".html"]').forEach(link => {
+        link.addEventListener("click", (e) => {
+          const url = link.getAttribute("href");
+          if (!url) return;
+          e.preventDefault();
+          document.body.style.opacity = "0";
+          setTimeout(() => {
+            window.location.href = url;
+          }, 400); // match CSS transition
+        });
+      });
+    });
   </script>
 
 </body>
