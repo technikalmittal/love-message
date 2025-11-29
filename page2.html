@@ -17,14 +17,17 @@
       overflow: hidden;
     }
     .bg {
-      position: fixed;
-      inset: 0;
-      background-image: url("shona-us.jpg");
-      background-size: cover;
-      background-position: center;
-      filter: brightness(0.65);
-      z-index: -1;
-      transform: scale(1.05);
+  position: fixed;
+  inset: 0;
+  background-image: url("shona-us.jpg");
+  background-size: contain;   /* <-- ensures full pic is visible */
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-color: #000000;  /* soft black behind image */
+  filter: brightness(0.75);
+  z-index: -1;
+}
+
     }
     .overlay {
       position: relative;
