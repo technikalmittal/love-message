@@ -16,6 +16,8 @@
       overflow: hidden;
       color: #a31144;
       position: relative;
+      opacity: 0;                        /* for fade effect */
+      transition: opacity 0.4s ease;     /* smooth fade */
     }
     .container {
       text-align: center;
@@ -115,7 +117,6 @@
       transform: translateY(1px) scale(0.98);
     }
 
-    /* Floating roses */
     .floating-rose {
       position: fixed;
       top: -40px;
@@ -164,7 +165,7 @@
   </div>
 
   <script>
-    // Animate love meter on load
+    // Love meter animation
     window.addEventListener("load", () => {
       const fill = document.getElementById("meterFill");
       setTimeout(() => {
@@ -172,7 +173,7 @@
       }, 300);
     });
 
-    // Create falling roses
+    // Falling roses
     function createRose() {
       const rose = document.createElement("div");
       rose.className = "floating-rose";
@@ -185,6 +186,27 @@
       setTimeout(() => rose.remove(), duration * 1000);
     }
     setInterval(createRose, 900);
+
+    // Smooth page transitions
+    document.addEventListener("DOMContentLoaded", () => {
+      // Fade in on load
+      requestAnimationFrame(() => {
+        document.body.style.opacity = "1";
+      });
+
+      // Fade out on internal navigation
+      document.querySelectorAll('a[href$=".html"]').forEach(link => {
+        link.addEventListener("click", (e) => {
+          const url = link.getAttribute("href");
+          if (!url) return;
+          e.preventDefault();
+          document.body.style.opacity = "0";
+          setTimeout(() => {
+            window.location.href = url;
+          }, 400);
+        });
+      });
+    });
   </script>
 
 </body>
