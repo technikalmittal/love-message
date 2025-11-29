@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Love meter for Shona 🌹</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at top, #ffe0ea 0, #fff5f8 45%, #ffe6f3 100%);
+      overflow: hidden;
+      color: #a31144;
+      position: relative;
+    }
+    .container {
+      text-align: center;
+      padding: 22px 20px 30px;
+      max-width: 430px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.94);
+      border-radius: 26px;
+      box-shadow: 0 22px 46px rgba(0, 0, 0, 0.08);
+      position: relative;
+      z-index: 2;
+    }
+    h1 { font-size: 24px; margin-bottom: 10px; }
+    .subtitle {
+      font-size: 14px;
+      color: #c01d57;
+      margin-bottom: 18px;
+    }
+
+    .meter-wrapper {
+      margin: 10px 0 14px;
+      text-align: left;
+    }
+    .label-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      margin-bottom: 4px;
+      color: #c21c55;
+    }
+    .meter {
+      width: 100%;
+      height: 20px;
+      border-radius: 999px;
+      background: #ffe2ef;
+      overflow: hidden;
+      border: 1px solid #ffc1df;
+    }
+    .meter-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #ff6fa3, #ff92c6, #ffb9dd);
+      border-radius: 999px;
+      transition: width 2s ease-out;
+    }
+
+    .final-text {
+      margin-top: 16px;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #b2164c;
+    }
+    .big-heart {
+      font-size: 30px;
+      margin-top: 10px;
+      animation: heartbeat 1.1s infinite;
+    }
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      25% { transform: scale(1.2); }
+      50% { transform: scale(0.95); }
+      75% { transform: scale(1.15); }
+    }
+
+    .button-row {
+      margin-top: 18px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .button {
+      padding: 10px 20px;
+      border-radius: 999px;
+      border: none;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+    }
+    .button.primary {
+      background: linear-gradient(135deg, #ff7ab5, #ffb3e6);
+      color: #3a0020;
+    }
+    .button.secondary {
+      background: #ffe6f2;
+      color: #b2164c;
+      border: 1px solid #ffc1e0;
+    }
+    .button:hover {
+      transform: translateY(-1px) scale(1.02);
+      filter: brightness(1.03);
+    }
+    .button:active {
+      transform: translateY(1px) scale(0.98);
+    }
+
+    /* Floating roses */
+    .floating-rose {
+      position: fixed;
+      top: -40px;
+      font-size: 20px;
+      opacity: 0.85;
+      animation: fallDown 10s linear infinite;
+      pointer-events: none;
+      z-index: 1;
+    }
+    @keyframes fallDown {
+      0% { transform: translateY(-40px) translateX(0); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateY(110vh) translateX(-40px); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Shona’s Love Meter 💕</h1>
+    <p class="subtitle">I tried to measure how much I love you… this is what happened 👇</p>
+
+    <div class="meter-wrapper">
+      <div class="label-row">
+        <span>Zero</span>
+        <span>Too much</span>
+      </div>
+      <div class="meter">
+        <div id="meterFill" class="meter-fill"></div>
+      </div>
+    </div>
+
+    <div class="final-text">
+      No matter how much I try,<br />
+      <strong>it always goes way beyond 100% for you.</strong><br /><br />
+      I love you, Shona. Today, tomorrow, and for our whole life together. 💍✨
+    </div>
+
+    <div class="big-heart">❤️</div>
+
+    <div class="button-row">
+      <a class="button secondary" href="page2.html">Back to our photo</a>
+      <a class="button primary" href="index.html">Restart the surprise</a>
+    </div>
+  </div>
+
+  <script>
+    // Animate love meter on load
+    window.addEventListener("load", () => {
+      const fill = document.getElementById("meterFill");
+      setTimeout(() => {
+        fill.style.width = "130%"; // goes beyond 100%
+      }, 300);
+    });
+
+    // Create falling roses
+    function createRose() {
+      const rose = document.createElement("div");
+      rose.className = "floating-rose";
+      rose.textContent = "🌹";
+      const xPos = Math.random() * window.innerWidth;
+      const duration = 7 + Math.random() * 6;
+      rose.style.left = xPos + "px";
+      rose.style.animationDuration = duration + "s";
+      document.body.appendChild(rose);
+      setTimeout(() => rose.remove(), duration * 1000);
+    }
+    setInterval(createRose, 900);
+  </script>
+
+</body>
+</html>
